@@ -4,11 +4,9 @@ from bs4 import BeautifulSoup;
 from urllib.request import urlopen;
 import pandas as pd;
 import json
-from flask_cors import CORS, cross_origin
 
 # setting app flask backend
-app = Flask(__name__, static_folder="visa_search/build")
-CORS(app)
+app = Flask(__name__)
 
 # getting data from the UK website
 website = urlopen("https://www.gov.uk/government/publications/register-of-licensed-sponsors-workers").read()
@@ -22,14 +20,8 @@ data_json = json.loads(data_str)
 
 # route for companies list
 @app.route("/companies_list",methods={"GET"})
-@cross_origin()
 def companies_list():
     return data_json["1"]
-
-@app.route("/")
-@cross_origin()
-def serve():
-    return send_from_directory(app.static_folder,"index.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
