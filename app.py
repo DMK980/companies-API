@@ -19,7 +19,7 @@ data_str = data.to_json(orient="index")
 data_json = json.loads(data_str)
 
 # route for companies list
-@app.route("/companies_list",methods={"GET"})
+@app.route("/",methods={"GET"})
 def companies_list():
     return data_json["1"]
 
